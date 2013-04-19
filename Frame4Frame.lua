@@ -1,5 +1,6 @@
 -- This function calculates the pct between the first loop line and the last loop line. Accellerations are allowed and they work like the \t-Accel.
-function calcTime(tenv, accel) if tenv._G.type(accel) == "nil" then accel = 1 end; return (math.max(0, tenv.j) / math.max(1, tenv.maxj)) ^ accel end;
+-- Usually you only need tenv or in special cases "accel"
+function calcTime(tenv, accel, pos, max_pos) if tenv._G.type(accel) == "nil" then accel = 1 end; if tenv._G.type(pos) == "nil" then pos = math.max(0, tenv.j) end; if tenv._G.type(max_pos) == "nil" then max_pos = math.max(1, tenv.maxj) end; return (pos / max_pos) ^ accel end;
 
 -- This is one of the central functions of the library. It distributes all times of the lines created by a loop.
 function distributeTimes(tenv) local start, stop = tenv.line.start_time, tenv.line.end_time; local duration = tenv.line.duration; local newstart = math.floor(start + (tenv.j - 1) / tenv.maxj * duration); local newend = math.floor(start + tenv.j / tenv.maxj * duration); tenv.retime("set", newstart, newend); return ""; end
