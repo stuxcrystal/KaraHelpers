@@ -13,7 +13,7 @@ function beziere (pct, p) resultstr = "\\pos("; local function fac(n) local k = 
 function setEnv(name, value) tenv[name] = value; return ""; end;
 
 -- Set the maximal loop execution proportional to the number of frames shown.
-function frames(length) if tenv._G.type(length) == "nil" then length = 50 end; local start, stop = tenv.line.start_time, tenv.line.end_time; tenv.retime("set", start + (tenv.j - 1) * length, start + tenv.j*length); tenv.maxloop(math.max(math.floor((stop-start) / length), 1); return ""; end;
+function frames(length) if tenv._G.type(length) == "nil" then length = 50 end; local start, stop = tenv.line.start_time, tenv.line.end_time; tenv.retime("set", start + (tenv.j - 1) * length, start + tenv.j*length); tenv.maxloop(math.max(math.floor((stop-start) / length), 1)); return ""; end;
 
 -- Moves the list of vertices to the given position.
 function move(pos, move) result = {}; for i=1,#move do result[i] = {}; result[i][1] = pos[1] + move[i][1]; result[i][2] = pos[2] + move[i][2]; end; return result; end
