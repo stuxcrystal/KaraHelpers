@@ -9,9 +9,6 @@ function distributeTimes() local start, stop = tenv.line.start_time, tenv.line.e
 -- Returns the point on a beziere line with the
 function beziere (pct, p) resultstr = "\\pos("; local function fac(n) local k = 1; if n > 1 then for i = 2,n do k = k * i; end; end; return k; end; local function bin(i, n) return fac(n) / (fac(i)*fac(n-i)) end; local function bernstein(pct, i, n) return bin(i, n) * pct^i * (1-pct)^(n-i); end; local point = {0,0}; local n = #p - 1; for i=0, n do local bern = bernstein(pct, i, n); point[1] = point[1] + p[i+1][1] * bern; point[2] = point[2] + p[i+1][2] * bern; end; resultstr = resultstr .. point[1] .. "," .. point[2]; return resultstr .. ")" end
 
--- Writes a value into the template environment
-function setEnv(name, value) tenv[name] = value; return ""; end;
-
 -- Set the maximal loop execution proportional to the number of frames shown.
 function frames(length) if tenv._G.type(length) == "nil" then length = 50 end; local start, stop = tenv.line.start_time, tenv.line.end_time; tenv.retime("set", start + (tenv.j - 1) * length, start + tenv.j*length); tenv.maxloop(math.max(math.floor((stop-start) / length), 1)); return ""; end;
 
